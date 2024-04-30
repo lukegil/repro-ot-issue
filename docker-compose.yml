@@ -1,0 +1,12 @@
+version: "3"
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector:0.99.0
+    ports:
+      - "4317:4317"  # gRPC port
+      - "4318:4318"  # HTTP port for traces
+      - "8888:8888"  # HTTP port for metrics and pipeline
+      - "9411:9411"  # Zipkin receiver port
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+    command: ["--config=/etc/otel-collector-config.yml"]
